@@ -31,4 +31,4 @@ function JHH:Start()
     end
 end
 
-Citizen.CreateThread(function(...) JHH:Start(...); end)
+--Citizen.CreateThread(function(...) JHH:Start(...); end)
