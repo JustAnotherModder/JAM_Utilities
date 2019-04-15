@@ -123,14 +123,20 @@ function JUtils.LoadTextureDict(textureDict)
   end
 end
 
-function JUtils.DisplayUI()
-  local num
+function JUtils.ToggleUI()
   local isHidden = IsRadarHidden()
   if isHidden then num = 1.0 else num = 0.0; end
   TriggerEvent('es:setMoneyDisplay', num)
   DisplayRadar(isHidden)
   ESX.UI.HUD.SetDisplay(num)
-  return num
+  return isHidden
+end
+
+function JUtils.SetUI(val)
+  if val == true then num = 1.0 else num = 0.0; end
+  TriggerEvent('es:setMoneyDisplay', num)
+  DisplayRadar(val)
+  ESX.UI.HUD.SetDisplay(num)
 end
 
 function JUtils.GetCoordsInFrontOfCam(...)
@@ -174,21 +180,6 @@ function JUtils:Startup()
   while not self.ESX or not ESX do        
     TriggerEvent('esx:getSharedObject', function(obj) ESX = obj; self.ESX = obj; end);
     Citizen.Wait(0)
-  end
-  self:HudThread()
-end
-
-function JUtils:HudThread()    
-  local isPaused = false
-  while true do
-    if IsPauseMenuActive() and not isPaused and not IsRadarHidden() then
-      isPaused = true
-      self:DisplayUI()
-    elseif not IsPauseMenuActive() and isPaused and IsRadarHidden() then
-      isPaused = false
-      self:DisplayUI()
-    end
-    Citizen.Wait(200)
   end
 end
 
