@@ -6,6 +6,7 @@ client_scripts {
     'Keys.lua',
     'Weapons.lua',
     'DrawText.lua',
+    'HudHider.lua',
 }
 
 server_scripts {
